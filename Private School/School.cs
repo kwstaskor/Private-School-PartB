@@ -29,15 +29,24 @@ namespace Private_School
             Console.WriteLine("\n\t\t\t\t----Choose Student----\n\n\t\tType Students Number to Assign and PRESS Enter\n");
             Console.Write("Student Number :");
         }
+        private static void ConsoleMessageForTrainers()
+        {
+            Console.Clear();
+            PrintAllTrainers();
+            Console.WriteLine("\n\t\t\t\t----Choose Trainer----\n\n\t\tType Trainers Number to Assign and PRESS Enter\n");
+        }
+        private static void ConsoleMessageForStudentsCourses()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\t\t\t\t----Choose Student/Students----\n\n\tType Course and Student Number to Assign or PRESS Enter without typing a number to exit\n");
+            PrintAllStudentsPerCourse();
+        }
         #endregion
 
-        #region "Input Validation"
+        #region Input Validation
         public static bool StringValidation(string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
-                return false;
-            else
-                return true;
+            return string.IsNullOrWhiteSpace(input) ? false : true;
         }
         public static bool DateTimeValidation(string input)
         {
@@ -53,7 +62,7 @@ namespace Private_School
         }
         #endregion
 
-        #region "Assignment Logic"
+        #region Assignment Logic
         public static void RegisterAssignment()
         {
             int counter = 0;
@@ -78,9 +87,6 @@ namespace Private_School
         }
         public static void DeleteAssignment()
         {
-            Console.Clear();
-            PrintAllAssignments();
-            Console.WriteLine("\n\t\t\t\t----Choose Assignment----\n\n\t\tType Assignments Number to DELETE and PRESS Enter\n");
             var choise = Console.ReadLine();
             using (AssignmentsTableAdapter assignmentsTable = new AssignmentsTableAdapter())
             {
@@ -96,23 +102,23 @@ namespace Private_School
                     catch (Exception)
                     {
                         Console.WriteLine("Wrong ID please try again....");
+                        Console.ReadKey();
                     }
-
                 }
             }
         }
         #endregion
 
-        #region "Courses Logic"
+        #region Courses Logic
         public static void RegisterCourse()
         {
-            int counter = 0;
-            while (counter != 2)
+            int choise = 0;
+            while (choise != 2)
             {
                 Console.Clear();
                 var course = new Course();
                 Console.WriteLine("\n1) Add another course \n2) Return to Register Menu");
-                counter = Convert.ToInt32(Console.ReadLine());
+                choise = Convert.ToInt32(Console.ReadLine());
             }
         }
         public static void PrintAllCourses()
@@ -130,9 +136,6 @@ namespace Private_School
 
         public static void DeleteCourse()
         {
-            Console.Clear();
-            PrintAllCourses();
-            Console.WriteLine("\n\t\t\t\t----Choose Course----\n\n\t\tType Courses Number to DELETE and PRESS Enter\n");
             var choise = Console.ReadLine();
             using (CoursesTableAdapter coursesTable = new CoursesTableAdapter())
             {
@@ -148,13 +151,14 @@ namespace Private_School
                     catch (Exception)
                     {
                         Console.WriteLine("Wrong ID please try again....");
+                        Console.ReadKey();
                     }
                 }
             }
         }
         #endregion
 
-        #region "Trainers Logic"
+        #region Trainers Logic
         public static void RegisterTrainer()
         {
             int counter = 0;
@@ -179,9 +183,6 @@ namespace Private_School
         }
         public static void DeleteTrainer()
         {
-            Console.Clear();
-            PrintAllTrainers();
-            Console.WriteLine("\n\t\t\t\t----Choose Trainer----\n\n\t\tType Trainers Number to DELETE and PRESS Enter\n");
             var choise = Console.ReadLine();
             using (TrainersTableAdapter trainersTable = new TrainersTableAdapter())
             {
@@ -197,13 +198,14 @@ namespace Private_School
                     catch (Exception)
                     {
                         Console.WriteLine("Wrong ID please try again....");
+                        Console.ReadKey();
                     }
                 }
             }
         }
         #endregion
 
-        #region "Students Logic"
+        #region Students Logic
         public static void RegisterStudent()
         {
             int counter = 0;
@@ -228,9 +230,6 @@ namespace Private_School
         }
         public static void DeleteStudent()
         {
-            Console.Clear();
-            PrintAllStudents();
-            Console.WriteLine("\n\t\t\t\t----Choose Student----\n\n\t\tType Students Number to DELETE and PRESS Enter\n");
             var choise = Console.ReadLine();
             using (StudentsTableAdapter studentsTable = new StudentsTableAdapter())
             {
@@ -253,7 +252,19 @@ namespace Private_School
         }
         #endregion
 
-        #region "TrainersPerCourse"
+        #region TrainersPerCourse
+        public static void TrainersPerCourseMatch()
+        {
+            ConsoleMessageForTrainers();
+            var choise = Console.ReadLine();
+            PrivateSchool dbSet = new PrivateSchool();
+            if (StringValidation(choise))
+            {
+                TrainersCoursesRow trainersCoursesRow = dbSet.TrainersCourses.NewTrainersCoursesRow();
+                trainersCoursesRow.TrainerID = Convert.ToInt32(choise);
+                TrainersCourseSelection(trainersCoursesRow);
+            }
+        }
         private static void TrainersCourseSelection(TrainersCoursesRow trainersCoursesRow)
         {
             ConsoleMessageForCourse();
@@ -268,8 +279,7 @@ namespace Private_School
                         trainersCoursesRow.CourseID = Convert.ToInt32(choise);
                         try
                         {
-                            trainersCoursesTable.Insert(trainersCoursesRow.TrainerID, trainersCoursesRow.CourseID);
-                            trainersCoursesTable.Update(dbSet.TrainersCourses);
+                            AddToTrainersCoursesTable(trainersCoursesRow, trainersCoursesTable, dbSet);
                             Console.WriteLine("Another Course number? :");
                         }
                         catch (Exception)
@@ -285,19 +295,12 @@ namespace Private_School
             }
             while (true);
         }
-        public static void TrainersPerCourseMatch()
+
+        private static void AddToTrainersCoursesTable(TrainersCoursesRow trainersCoursesRow, TrainersCoursesTableAdapter trainersCoursesTable,
+                                                      PrivateSchool dbSet)
         {
-            Console.Clear();
-            PrintAllTrainers();
-            Console.WriteLine("\n\t\t\t\t----Choose Trainer----\n\n\t\tType Trainers Number to Assign and PRESS Enter\n");
-            var choise = Console.ReadLine();
-            PrivateSchool dbSet = new PrivateSchool();
-            if (StringValidation(choise))
-            {
-                TrainersCoursesRow trainersCoursesRow = dbSet.TrainersCourses.NewTrainersCoursesRow();
-                trainersCoursesRow.TrainerID = Convert.ToInt32(choise);
-                TrainersCourseSelection(trainersCoursesRow);
-            }
+            trainersCoursesTable.Insert(trainersCoursesRow.TrainerID, trainersCoursesRow.CourseID);
+            trainersCoursesTable.Update(dbSet.TrainersCourses);
         }
         public static void PrintAllTrainersPerCourse()
         {
@@ -319,7 +322,19 @@ namespace Private_School
         }
         #endregion
 
-        #region "StudentsPerCourse"
+        #region StudentsPerCourse
+        public static void StudentsPerCourseMatch()
+        {
+            ConsoleMessageForStudents();
+            var choise = Console.ReadLine();
+            PrivateSchool dbSet = new PrivateSchool();
+            if (StringValidation(choise))
+            {
+                StudentsCoursesRow studentsCoursesRow = dbSet.StudentsCourses.NewStudentsCoursesRow();
+                studentsCoursesRow.StudentID = Convert.ToInt32(choise);
+                StudentsCourseSelection(studentsCoursesRow);
+            }
+        }
         private static void StudentsCourseSelection(StudentsCoursesRow studentsCoursesRow)
         {
             ConsoleMessageForCourse();
@@ -337,10 +352,7 @@ namespace Private_School
                             PrivateSchool dbSet = new PrivateSchool();
                             try
                             {
-                                studentsCoursesRow.CourseID = Convert.ToInt32(choise);
-                                studentsCoursesRow.tuitionFees = Convert.ToSingle(tuituionFee);
-                                studentsCoursesTable.Insert(studentsCoursesRow.CourseID, studentsCoursesRow.StudentID, studentsCoursesRow.tuitionFees);
-                                studentsCoursesTable.Update(dbSet.StudentsCourses);
+                                AddToStudentsCourseTable(studentsCoursesRow, choise, tuituionFee, studentsCoursesTable, dbSet);
                                 Console.Write("Another Course number? :");
                             }
                             catch (Exception)
@@ -359,20 +371,15 @@ namespace Private_School
             }
             while (true);
         }
-        public static void StudentsPerCourseMatch()
+
+        private static void AddToStudentsCourseTable(StudentsCoursesRow studentsCoursesRow, string choise, string tuituionFee, 
+                                                     StudentsCoursesTableAdapter studentsCoursesTable, PrivateSchool dbSet)
         {
-            ConsoleMessageForStudents();
-            var choise = Console.ReadLine();
-            PrivateSchool dbSet = new PrivateSchool();
-            if (StringValidation(choise))
-            {
-                StudentsCoursesRow studentsCoursesRow = dbSet.StudentsCourses.NewStudentsCoursesRow();
-                studentsCoursesRow.StudentID = Convert.ToInt32(choise);
-                StudentsCourseSelection(studentsCoursesRow);
-            }
+            studentsCoursesRow.CourseID = Convert.ToInt32(choise);
+            studentsCoursesRow.tuitionFees = Convert.ToSingle(tuituionFee);
+            studentsCoursesTable.Insert(studentsCoursesRow.CourseID, studentsCoursesRow.StudentID, studentsCoursesRow.tuitionFees);
+            studentsCoursesTable.Update(dbSet.StudentsCourses);
         }
-
-
         public static void PrintAllStudentsPerCourse()
         {
             using (StudentsPerCoursesTableAdapter studentsPerCoursesTable = new StudentsPerCoursesTableAdapter())
@@ -409,15 +416,15 @@ namespace Private_School
             }
         }
         #endregion
-
-        #region "AssignmentPerCourse
+         
+        #region AssignmentPerCourse
         public static void AssignmentsPerCourseMatch()
         {
             ConsoleMessageForAssignment();
             var choise = Console.ReadLine();
-            PrivateSchool dbSet = new PrivateSchool();
             if (StringValidation(choise))
             {
+                PrivateSchool dbSet = new PrivateSchool();
                 AssignmentsCoursesRow assignmentsCoursesRow = dbSet.AssignmentsCourses.NewAssignmentsCoursesRow();
                 assignmentsCoursesRow.AssignmentID = Convert.ToInt32(choise);
                 AssignmentsCourseSelection(assignmentsCoursesRow);
@@ -442,11 +449,7 @@ namespace Private_School
                             PrivateSchool dbSet = new PrivateSchool();
                             try
                             {
-                                assignmentsCoursesRow.CourseID = Convert.ToInt32(choise);
-                                assignmentsCoursesRow.oralMark = Convert.ToSingle(oralMark);
-                                assignmentsCoursesRow.totalMark = Convert.ToSingle(totalMark);
-                                assignmentsCoursesTable.Insert(assignmentsCoursesRow.AssignmentID, assignmentsCoursesRow.CourseID, assignmentsCoursesRow.oralMark, assignmentsCoursesRow.totalMark);
-                                assignmentsCoursesTable.Update(dbSet.AssignmentsCourses);
+                                AddToAssignmentsCoursesTable(assignmentsCoursesRow, choise, oralMark, totalMark, assignmentsCoursesTable, dbSet);
                                 Console.Write("Another Course number? :");
                             }
                             catch (Exception)
@@ -464,6 +467,16 @@ namespace Private_School
                     break;
             }
             while (true);
+        }
+        private static void AddToAssignmentsCoursesTable(AssignmentsCoursesRow assignmentsCoursesRow, string choise, string oralMark,
+                                                         string totalMark, AssignmentsCoursesTableAdapter assignmentsCoursesTable, PrivateSchool dbSet)
+        {
+            assignmentsCoursesRow.CourseID = Convert.ToInt32(choise);
+            assignmentsCoursesRow.oralMark = Convert.ToSingle(oralMark);
+            assignmentsCoursesRow.totalMark = Convert.ToSingle(totalMark);
+            assignmentsCoursesTable.Insert(assignmentsCoursesRow.AssignmentID, assignmentsCoursesRow.CourseID, assignmentsCoursesRow.oralMark, assignmentsCoursesRow.totalMark);
+            assignmentsCoursesTable.Update(dbSet.AssignmentsCourses);
+            
         }
         public static void PrintAllAssignmentsPerCourse()
         {
@@ -484,7 +497,7 @@ namespace Private_School
         }
         #endregion
 
-        #region "AssignmentPerStudent"
+        #region AssignmentPerStudent
         public static void AssignmentsPerStudentMatch()
         {
             ConsoleMessageForAssignment();
@@ -497,14 +510,9 @@ namespace Private_School
                 AssignmentsStudentSelection(studentsAssignmentsRow);
             }
         }
-
-      
-
         private static void AssignmentsStudentSelection(StudentsAssignmentsRow studentsAssignmentsRow)
         {
-            Console.Clear();
-            Console.WriteLine("\n\t\t\t\t----Choose Student/Students----\n\n\tType Course and Student Number to Assign or PRESS Enter without typing a number to exit\n");
-            PrintAllStudentsPerCourse();
+            ConsoleMessageForStudentsCourses();
             do
             {
                 Console.Write("\n\nCourse Number? :");
@@ -518,10 +526,7 @@ namespace Private_School
                         PrivateSchool dbSet = new PrivateSchool();
                         try
                         {
-                            studentsAssignmentsRow.CoursesID = Convert.ToInt32(choise);
-                            studentsAssignmentsRow.StudentsID = Convert.ToInt32(secondChoice);
-                            studentsAssignmentsTable.Insert(studentsAssignmentsRow.AssignmentID, studentsAssignmentsRow.StudentsID, studentsAssignmentsRow.CoursesID);
-                            studentsAssignmentsTable.Update(dbSet.StudentsAssignments);
+                            AddToAssignmentsStudentsTable(studentsAssignmentsRow, choise, secondChoice, studentsAssignmentsTable, dbSet);
                         }
                         catch (Exception)
                         {
@@ -535,6 +540,14 @@ namespace Private_School
                     break;
             }
             while (true);
+        }
+        private static void AddToAssignmentsStudentsTable(StudentsAssignmentsRow studentsAssignmentsRow, string choise, string secondChoice,
+                                                          StudentsAssignmentsTableAdapter studentsAssignmentsTable, PrivateSchool dbSet)
+        {
+            studentsAssignmentsRow.CoursesID = Convert.ToInt32(choise);
+            studentsAssignmentsRow.StudentsID = Convert.ToInt32(secondChoice);
+            studentsAssignmentsTable.Insert(studentsAssignmentsRow.AssignmentID, studentsAssignmentsRow.StudentsID, studentsAssignmentsRow.CoursesID);
+            studentsAssignmentsTable.Update(dbSet.StudentsAssignments);
         }
         public static void PrintAllAssignmentsPerStudent()
         {
