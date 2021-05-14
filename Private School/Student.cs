@@ -24,6 +24,11 @@ namespace Private_School
                 DateOfBirth = DateTime.Parse(dateCheck);
                 break;
             }
+            AddStudentToDb();
+        }
+
+        private void AddStudentToDb()
+        {
             using (StudentsTableAdapter studentsTable = new StudentsTableAdapter())
             {
                 PrivateSchool dbSet = new PrivateSchool();

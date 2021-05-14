@@ -37,35 +37,45 @@ public static class Menu
     private static void MainMenuWelcomeMessage()
     {
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("\t\t\t---------------Private School---------------\n\nHello Welcome to Private school");
         Console.WriteLine("\n\tMain Menu \n1) Register \n2) View all \n3) Delete Menu \n4) Exit\n\n");
         Console.Write("Select an option. : ");
+        Console.ResetColor();
     }
     private static void RegisterMenuWelcomeMessage()
     {
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("\tRegister Menu \n1) Add Courses \n2) Add Assignments \n3) Add Trainers \n4) Add Students \n5) " +
             "Assign Trainers to Courses \n6) Assign Students to Courses \n7) Assign Assignments to Courses" +
             "\n8) Assign Assignments to Students \n\n");
         Console.Write("Select an option , or press Enter to return to Main Menu  : ");
+        Console.ResetColor();
     }
     private static void PrintMenuWelcomeMessage()
     {
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("\tView Menu \n1) All Courses \n2) All Assignments \n3) All Trainers \n4) All Students " +
             "\n5) Trainers Per Course \n6) Assignments Per Course \n7) Students per Course" +
             "\n8) Assignments per Student \n9) Students with two courses or more \n\n");
         Console.Write("Select an option , or press Enter to return to Main Menu : ");
+        Console.ResetColor();
     }
     private static void DeleteMenuWelcomeMessage()
     {
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("\tDelete Menu \n1) Delete Courses \n2) Delete Assignments \n3) Delete Trainers \n4) Delete Students \n\n");
         Console.Write("Select an option , or press Enter to return to Main Menu  : ");
+        Console.ResetColor();
     }
     private static void PrintMenuReturnMessage()
     {
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.Write("\n\nPress Enter to return to View menu.");
+        Console.ResetColor();
         Console.ReadLine();
     }
     #endregion

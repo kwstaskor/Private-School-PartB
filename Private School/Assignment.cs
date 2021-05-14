@@ -24,6 +24,11 @@ namespace Private_School
                 SubDateTime = DateTime.Parse(dateCheck);
                 break;
             }
+            AddAssignmentToDb();
+        }
+
+        private void AddAssignmentToDb()
+        {
             using (AssignmentsTableAdapter assignmentsTable = new AssignmentsTableAdapter())
             {
                 PrivateSchool dbSet = new PrivateSchool();

@@ -44,10 +44,8 @@ namespace Private_School
         #endregion
 
         #region Input Validation
-        public static bool StringValidation(string input)
-        {
-            return string.IsNullOrWhiteSpace(input) ? false : true;
-        }
+        public static bool StringValidation(string input) => !string.IsNullOrWhiteSpace(input);
+      
         public static bool DateTimeValidation(string input)
         {
             try
@@ -63,7 +61,7 @@ namespace Private_School
         #endregion
 
         #region Assignment Logic
-        public static void RegisterAssignment()
+        public static void RegisterAssignment() 
         {
             int counter = 0;
             while (counter != 2)
@@ -327,9 +325,9 @@ namespace Private_School
         {
             ConsoleMessageForStudents();
             var choise = Console.ReadLine();
-            PrivateSchool dbSet = new PrivateSchool();
             if (StringValidation(choise))
             {
+                PrivateSchool dbSet = new PrivateSchool();
                 StudentsCoursesRow studentsCoursesRow = dbSet.StudentsCourses.NewStudentsCoursesRow();
                 studentsCoursesRow.StudentID = Convert.ToInt32(choise);
                 StudentsCourseSelection(studentsCoursesRow);
@@ -341,38 +339,35 @@ namespace Private_School
             do
             {
                 var choise = Console.ReadLine();
-                if (StringValidation(choise))
+                Console.Write("What is the Tuition Fee for this Course? :");
+                var tuituionFee = Console.ReadLine();
+                if (StringValidation(choise) && StringValidation(tuituionFee))
                 {
-                    Console.Write("What is the Tuition Fee for this Course? :");
-                    var tuituionFee = Console.ReadLine();
-                    if (StringValidation(tuituionFee))
+                    using (StudentsCoursesTableAdapter studentsCoursesTable = new StudentsCoursesTableAdapter())
                     {
-                        using (StudentsCoursesTableAdapter studentsCoursesTable = new StudentsCoursesTableAdapter())
+                        PrivateSchool dbSet = new PrivateSchool();
+                        try
                         {
-                            PrivateSchool dbSet = new PrivateSchool();
-                            try
-                            {
-                                AddToStudentsCourseTable(studentsCoursesRow, choise, tuituionFee, studentsCoursesTable, dbSet);
-                                Console.Write("Another Course number? :");
-                            }
-                            catch (Exception)
-                            {
-                                Console.WriteLine("This Course already belongs to this Student.\nTry again....");
-                                Console.ReadKey();
-                                break;
-                            }
+                            AddToStudentsCourseTable(studentsCoursesRow, choise, tuituionFee, studentsCoursesTable, dbSet);
+                            Console.Write("Another Course number? :");
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("This Course already belongs to this Student.\nTry again....");
+                            Console.ReadKey();
+                            break;
                         }
                     }
-                    else
-                        Console.WriteLine("All Fields required to be filled.Try again...");
                 }
                 else
-                    break;
+                    Console.WriteLine("All Fields required to be filled.Try again...");
+                Console.ReadKey();
+                break;
             }
             while (true);
         }
 
-        private static void AddToStudentsCourseTable(StudentsCoursesRow studentsCoursesRow, string choise, string tuituionFee, 
+        private static void AddToStudentsCourseTable(StudentsCoursesRow studentsCoursesRow, string choise, string tuituionFee,
                                                      StudentsCoursesTableAdapter studentsCoursesTable, PrivateSchool dbSet)
         {
             studentsCoursesRow.CourseID = Convert.ToInt32(choise);
@@ -416,7 +411,7 @@ namespace Private_School
             }
         }
         #endregion
-         
+
         #region AssignmentPerCourse
         public static void AssignmentsPerCourseMatch()
         {
@@ -438,10 +433,8 @@ namespace Private_School
                 var choise = Console.ReadLine();
                 if (StringValidation(choise))
                 {
-                    Console.Write("What is the Oral Mark for this Course? :");
-                    var oralMark = Console.ReadLine();
-                    Console.Write("What is the Total Mark for this Course? :");
-                    var totalMark = Console.ReadLine();
+                    string oralMark, totalMark;
+                    NewMethod(out oralMark, out totalMark);
                     if (StringValidation(oralMark) && StringValidation(totalMark))
                     {
                         using (AssignmentsCoursesTableAdapter assignmentsCoursesTable = new AssignmentsCoursesTableAdapter())
@@ -468,6 +461,15 @@ namespace Private_School
             }
             while (true);
         }
+
+        private static void NewMethod(out string oralMark, out string totalMark)
+        {
+            Console.Write("What is the Oral Mark for this Course? :");
+            oralMark = Console.ReadLine();
+            Console.Write("What is the Total Mark for this Course? :");
+            totalMark = Console.ReadLine();
+        }
+
         private static void AddToAssignmentsCoursesTable(AssignmentsCoursesRow assignmentsCoursesRow, string choise, string oralMark,
                                                          string totalMark, AssignmentsCoursesTableAdapter assignmentsCoursesTable, PrivateSchool dbSet)
         {
@@ -476,7 +478,7 @@ namespace Private_School
             assignmentsCoursesRow.totalMark = Convert.ToSingle(totalMark);
             assignmentsCoursesTable.Insert(assignmentsCoursesRow.AssignmentID, assignmentsCoursesRow.CourseID, assignmentsCoursesRow.oralMark, assignmentsCoursesRow.totalMark);
             assignmentsCoursesTable.Update(dbSet.AssignmentsCourses);
-            
+
         }
         public static void PrintAllAssignmentsPerCourse()
         {

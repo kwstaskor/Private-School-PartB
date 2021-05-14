@@ -23,6 +23,11 @@ namespace Private_School
                 Console.Write("Subject :"); Subject = Console.ReadLine(); if (!School.StringValidation(Subject)) continue;
                 break;
             }
+            AddTrainerToDb();
+        }
+
+        private void AddTrainerToDb()
+        {
             using (TrainersTableAdapter trainersTable = new TrainersTableAdapter())
             {
                 PrivateSchool dbSet = new PrivateSchool();

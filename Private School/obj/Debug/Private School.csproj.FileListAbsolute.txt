@@ -12,3 +12,10 @@ C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Individual
 C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Individual Project\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\obj\Debug\Private School.csproj.CoreCompileInputs.cache
 C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Individual Project\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\obj\Debug\Private School.exe
 C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Individual Project\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\obj\Debug\Private School.pdb
+C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Private-School\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\bin\Debug\Private School.exe.config
+C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Private-School\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\bin\Debug\Private School.exe
+C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Private-School\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\bin\Debug\Private School.pdb
+C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Private-School\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\obj\Debug\Private School.csprojAssemblyReference.cache
+C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Private-School\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\obj\Debug\Private School.csproj.CoreCompileInputs.cache
+C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Private-School\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\obj\Debug\Private School.exe
+C:\Users\Κώστας\OneDrive\Υπολογιστής\Prg\People Cert\Private-School\Kostas_Korliaftis_IndividualProjectPartB\PrivateSchoolConsoleApp\Private School\Private School\obj\Debug\Private School.pdb

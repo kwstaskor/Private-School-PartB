@@ -31,6 +31,11 @@ namespace Private_School
                 EndDate = DateTime.Parse(endCheck);
                 break;
             }
+            AddCourseToDb();
+        }
+
+        private void AddCourseToDb()
+        {
             using (CoursesTableAdapter coursesTable = new CoursesTableAdapter())
             {
                 PrivateSchool dbSet = new PrivateSchool();
