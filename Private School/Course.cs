@@ -25,8 +25,8 @@ namespace Private_School
                 Console.Write("Title :"); Title = Console.ReadLine(); if (!School.StringValidation(Title)) continue;
                 Console.Write("Stream :"); Stream = Console.ReadLine(); if (!School.StringValidation(Stream)) continue;
                 Console.Write("Type :"); Type = Console.ReadLine(); if (!School.StringValidation(Type)) continue;
-                Console.Write("Start Date :"); string startCheck = Console.ReadLine(); if (!School.DateTimeValidation(startCheck)) { Console.WriteLine("Wrong Date e.g of correct date(1/1/2001)"); continue; }
-                Console.Write("End Date :"); string endCheck = Console.ReadLine(); if (!School.DateTimeValidation(endCheck)) { Console.WriteLine("Wrong Date e.g of correct date(1/1/2001)"); continue; }
+                Console.Write("Start Date :"); var startCheck = Console.ReadLine(); if (!School.DateTimeValidation(startCheck)) { Console.WriteLine("Wrong Date e.g of correct date(1/1/2001)"); continue; }
+                Console.Write("End Date :"); var endCheck = Console.ReadLine(); if (!School.DateTimeValidation(endCheck)) { Console.WriteLine("Wrong Date e.g of correct date(1/1/2001)"); continue; }
                 StartDate = DateTime.Parse(startCheck);
                 EndDate = DateTime.Parse(endCheck);
                 break;
@@ -36,9 +36,9 @@ namespace Private_School
 
         private void AddCourseToDb()
         {
-            using (CoursesTableAdapter coursesTable = new CoursesTableAdapter())
+            using (var coursesTable = new CoursesTableAdapter())
             {
-                PrivateSchool dbSet = new PrivateSchool();
+                var dbSet = new PrivateSchool();
                 coursesTable.Insert(Title, Stream, Type, StartDate, EndDate);
                 coursesTable.Fill(dbSet.Courses);
             }

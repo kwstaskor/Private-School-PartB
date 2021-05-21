@@ -28,9 +28,9 @@ namespace Private_School
 
         private void AddTrainerToDb()
         {
-            using (TrainersTableAdapter trainersTable = new TrainersTableAdapter())
+            using (var trainersTable = new TrainersTableAdapter())
             {
-                PrivateSchool dbSet = new PrivateSchool();
+                var dbSet = new PrivateSchool();
                 trainersTable.Insert(FirstName, LastName, Subject);
                 trainersTable.Fill(dbSet.Trainers);
             }

@@ -20,7 +20,7 @@ namespace Private_School
                 Console.WriteLine("All Fields Required to be filled\n");
                 Console.Write("First Name :"); FirstName = Console.ReadLine(); if (!School.StringValidation(FirstName)) continue;
                 Console.Write("Last Name :"); LastName = Console.ReadLine(); if (!School.StringValidation(LastName)) continue;
-                Console.Write("Date of birth :"); string dateCheck = Console.ReadLine(); if (!School.DateTimeValidation(dateCheck)) { Console.WriteLine("Wrong Date e.g of correct date(1/1/2001)"); continue; }
+                Console.Write("Date of birth :"); var dateCheck = Console.ReadLine(); if (!School.DateTimeValidation(dateCheck)) { Console.WriteLine("Wrong Date e.g of correct date(1/1/2001)"); continue; }
                 DateOfBirth = DateTime.Parse(dateCheck);
                 break;
             }
@@ -29,9 +29,9 @@ namespace Private_School
 
         private void AddStudentToDb()
         {
-            using (StudentsTableAdapter studentsTable = new StudentsTableAdapter())
+            using (var studentsTable = new StudentsTableAdapter())
             {
-                PrivateSchool dbSet = new PrivateSchool();
+                var dbSet = new PrivateSchool();
                 studentsTable.Insert(FirstName, LastName, DateOfBirth);
                 studentsTable.Fill(dbSet.Students);
             }

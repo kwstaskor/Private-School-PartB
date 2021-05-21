@@ -7,7 +7,7 @@ namespace Private_School
     {
         public static void CreateSyntheticData()
         {
-            using (PrivateSchool dbSet = new PrivateSchool())
+            using (var dbSet = new PrivateSchool())
             {
                 FillCoursesTable(dbSet);
 
@@ -20,7 +20,7 @@ namespace Private_School
         }
         private static void FillCoursesTable(PrivateSchool dbSet)
         {
-            CoursesTableAdapter coursesTable = new CoursesTableAdapter();
+            var coursesTable = new CoursesTableAdapter();
             coursesTable.Insert("Programing Fundamentals", "Java", "Part Time", new DateTime(2021, 2, 15), new DateTime(2021, 9, 15));
             coursesTable.Insert("Programing Advanced", "C#", "Full Time", new DateTime(2021, 2, 15), new DateTime(2021, 5, 15));
             coursesTable.Insert("Programing Fundamentals", "C#", "Part Time", new DateTime(2021, 2, 15), new DateTime(2021, 9, 15));
@@ -29,7 +29,7 @@ namespace Private_School
         }
         private static void FillTrainersTable(PrivateSchool dbSet)
         {
-            TrainersTableAdapter trainersTable = new TrainersTableAdapter();
+            var trainersTable = new TrainersTableAdapter();
             trainersTable.Insert("Giorgos", "Evagelou", "Computer Science");
             trainersTable.Insert("Vagelis", "Dimitrou", "Computer Science");
             trainersTable.Insert("Dimitris", "Kostantinou", "Computer Science");
@@ -38,7 +38,7 @@ namespace Private_School
         }
         private static void FillStudentsTable(PrivateSchool dbSet)
         {
-            StudentsTableAdapter studentsTable = new StudentsTableAdapter();
+            var studentsTable = new StudentsTableAdapter();
             studentsTable.Insert("Kostas", "Papaxristou", new DateTime(1991, 5, 5));
             studentsTable.Insert("Xristos", "Papakostas", new DateTime(1991, 4, 5));
             studentsTable.Insert("Giorgos", "Ioanou", new DateTime(1991, 6, 5));
@@ -49,11 +49,11 @@ namespace Private_School
         }
         private static void FillAssignmentsTable(PrivateSchool dbSet)
         {
-            AssignmentsTableAdapter assignmentsTable = new AssignmentsTableAdapter();
+            var assignmentsTable = new AssignmentsTableAdapter();
             assignmentsTable.Insert("Private School", "Individual Project", new DateTime(2021, 3, 31));
             assignmentsTable.Insert("Data Bases", "Individual Project", new DateTime(2021, 3, 31));
             assignmentsTable.Insert("Web Security", "Group Project", new DateTime(2021, 3, 15));
-            assignmentsTable.Insert("Web Aplication", "Group Project", new DateTime(2021, 3, 15));
+            assignmentsTable.Insert("Web Application", "Group Project", new DateTime(2021, 3, 15));
             assignmentsTable.Fill(dbSet.Assignments);
         }
     }

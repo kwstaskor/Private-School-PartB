@@ -5,7 +5,7 @@ using static Private_School.PrivateSchool;
 
 namespace Private_School
 {
-    class School
+    public static class School
     {
         #region Console Messages
         private static void ConsoleMessageForCourse()
@@ -63,7 +63,7 @@ namespace Private_School
         #region Assignment Logic
         public static void RegisterAssignment() 
         {
-            int counter = 0;
+            var counter = 0;
             while (counter != 2)
             {
                 Console.Clear();
@@ -74,7 +74,7 @@ namespace Private_School
         }
         public static void PrintAllAssignments()
         {
-            using (AssignmentsTableAdapter assignmentsTable = new AssignmentsTableAdapter())
+            using (var assignmentsTable = new AssignmentsTableAdapter())
             {
                 var assignments = assignmentsTable.GetData().ToList();
                 foreach (var assignment in assignments)
@@ -85,16 +85,16 @@ namespace Private_School
         }
         public static void DeleteAssignment()
         {
-            var choise = Console.ReadLine();
-            using (AssignmentsTableAdapter assignmentsTable = new AssignmentsTableAdapter())
+            var choice = Console.ReadLine();
+            using (var assignmentsTable = new AssignmentsTableAdapter())
             {
-                if (StringValidation(choise))
+                if (StringValidation(choice))
                 {
                     try
                     {
-                        PrivateSchool dbSet = new PrivateSchool();
+                        var dbSet = new PrivateSchool();
                         assignmentsTable.Fill(dbSet.Assignments);
-                        dbSet.Assignments.FindByID(Convert.ToInt32(choise)).Delete();
+                        dbSet.Assignments.FindByID(Convert.ToInt32(choice)).Delete();
                         assignmentsTable.Update(dbSet.Assignments);
                     }
                     catch (Exception)
@@ -110,18 +110,18 @@ namespace Private_School
         #region Courses Logic
         public static void RegisterCourse()
         {
-            int choise = 0;
-            while (choise != 2)
+            var choice = 0;
+            while (choice != 2)
             {
                 Console.Clear();
                 var course = new Course();
                 Console.WriteLine("\n1) Add another course \n2) Return to Register Menu");
-                choise = Convert.ToInt32(Console.ReadLine());
+                choice = Convert.ToInt32(Console.ReadLine());
             }
         }
         public static void PrintAllCourses()
         {
-            using (CoursesTableAdapter coursesTable = new CoursesTableAdapter())
+            using (var coursesTable = new CoursesTableAdapter())
             {
                 var courses = coursesTable.GetData().ToList();
                 foreach (var course in courses)
@@ -134,16 +134,16 @@ namespace Private_School
 
         public static void DeleteCourse()
         {
-            var choise = Console.ReadLine();
-            using (CoursesTableAdapter coursesTable = new CoursesTableAdapter())
+            var choice = Console.ReadLine();
+            using (var coursesTable = new CoursesTableAdapter())
             {
-                if (StringValidation(choise))
+                if (StringValidation(choice))
                 {
                     try
                     {
-                        PrivateSchool dbSet = new PrivateSchool();
+                        var dbSet = new PrivateSchool();
                         coursesTable.Fill(dbSet.Courses);
-                        dbSet.Courses.FindByID(Convert.ToInt32(choise)).Delete();
+                        dbSet.Courses.FindByID(Convert.ToInt32(choice)).Delete();
                         coursesTable.Update(dbSet.Courses);
                     }
                     catch (Exception)
@@ -159,7 +159,7 @@ namespace Private_School
         #region Trainers Logic
         public static void RegisterTrainer()
         {
-            int counter = 0;
+            var counter = 0;
             while (counter != 2)
             {
                 Console.Clear();
@@ -170,7 +170,7 @@ namespace Private_School
         }
         public static void PrintAllTrainers()
         {
-            using (TrainersTableAdapter trainersTable = new TrainersTableAdapter())
+            using (var trainersTable = new TrainersTableAdapter())
             {
                 var trainers = trainersTable.GetData().ToList();
                 foreach (var trainer in trainers)
@@ -181,16 +181,16 @@ namespace Private_School
         }
         public static void DeleteTrainer()
         {
-            var choise = Console.ReadLine();
-            using (TrainersTableAdapter trainersTable = new TrainersTableAdapter())
+            var choice = Console.ReadLine();
+            using (var trainersTable = new TrainersTableAdapter())
             {
-                if (StringValidation(choise))
+                if (StringValidation(choice))
                 {
                     try
                     {
-                        PrivateSchool dbSet = new PrivateSchool();
+                        var dbSet = new PrivateSchool();
                         trainersTable.Fill(dbSet.Trainers);
-                        dbSet.Trainers.FindByID(Convert.ToInt32(choise)).Delete();
+                        dbSet.Trainers.FindByID(Convert.ToInt32(choice)).Delete();
                         trainersTable.Update(dbSet.Trainers);
                     }
                     catch (Exception)
@@ -206,7 +206,7 @@ namespace Private_School
         #region Students Logic
         public static void RegisterStudent()
         {
-            int counter = 0;
+            var counter = 0;
             while (counter != 2)
             {
                 Console.Clear();
@@ -217,7 +217,7 @@ namespace Private_School
         }
         public static void PrintAllStudents()
         {
-            using (StudentsTableAdapter studentsTable = new StudentsTableAdapter())
+            using (var studentsTable = new StudentsTableAdapter())
             {
                 var students = studentsTable.GetData().ToList();
                 foreach (var student in students)
@@ -228,16 +228,16 @@ namespace Private_School
         }
         public static void DeleteStudent()
         {
-            var choise = Console.ReadLine();
-            using (StudentsTableAdapter studentsTable = new StudentsTableAdapter())
+            var choice = Console.ReadLine();
+            using (var studentsTable = new StudentsTableAdapter())
             {
-                if (StringValidation(choise))
+                if (StringValidation(choice))
                 {
                     try
                     {
-                        PrivateSchool dbSet = new PrivateSchool();
+                        var dbSet = new PrivateSchool();
                         studentsTable.Fill(dbSet.Students);
-                        dbSet.Students.FindByID(Convert.ToInt32(choise)).Delete();
+                        dbSet.Students.FindByID(Convert.ToInt32(choice)).Delete();
                         studentsTable.Update(dbSet.Students);
                     }
                     catch (Exception)
@@ -254,12 +254,12 @@ namespace Private_School
         public static void TrainersPerCourseMatch()
         {
             ConsoleMessageForTrainers();
-            var choise = Console.ReadLine();
-            PrivateSchool dbSet = new PrivateSchool();
-            if (StringValidation(choise))
+            var choice = Console.ReadLine();
+            var dbSet = new PrivateSchool();
+            if (StringValidation(choice))
             {
-                TrainersCoursesRow trainersCoursesRow = dbSet.TrainersCourses.NewTrainersCoursesRow();
-                trainersCoursesRow.TrainerID = Convert.ToInt32(choise);
+                var trainersCoursesRow = dbSet.TrainersCourses.NewTrainersCoursesRow();
+                trainersCoursesRow.TrainerID = Convert.ToInt32(choice);
                 TrainersCourseSelection(trainersCoursesRow);
             }
         }
@@ -268,13 +268,13 @@ namespace Private_School
             ConsoleMessageForCourse();
             do
             {
-                var choise = Console.ReadLine();
-                if (StringValidation(choise))
+                var choice = Console.ReadLine();
+                if (StringValidation(choice))
                 {
-                    using (TrainersCoursesTableAdapter trainersCoursesTable = new TrainersCoursesTableAdapter())
+                    using (var trainersCoursesTable = new TrainersCoursesTableAdapter())
                     {
-                        PrivateSchool dbSet = new PrivateSchool();
-                        trainersCoursesRow.CourseID = Convert.ToInt32(choise);
+                        var dbSet = new PrivateSchool();
+                        trainersCoursesRow.CourseID = Convert.ToInt32(choice);
                         try
                         {
                             AddToTrainersCoursesTable(trainersCoursesRow, trainersCoursesTable, dbSet);
@@ -303,7 +303,7 @@ namespace Private_School
         public static void PrintAllTrainersPerCourse()
         {
             Console.Clear();
-            using (TrainersPerCoursesTableAdapter trainersPerCoursesTableAdapter = new TrainersPerCoursesTableAdapter())
+            using (var trainersPerCoursesTableAdapter = new TrainersPerCoursesTableAdapter())
             {
                 var trainersPerCoursesRows = trainersPerCoursesTableAdapter.GetData();
                 if (trainersPerCoursesRows.Count > 0)
@@ -324,12 +324,12 @@ namespace Private_School
         public static void StudentsPerCourseMatch()
         {
             ConsoleMessageForStudents();
-            var choise = Console.ReadLine();
-            if (StringValidation(choise))
+            var choice = Console.ReadLine();
+            if (StringValidation(choice))
             {
-                PrivateSchool dbSet = new PrivateSchool();
-                StudentsCoursesRow studentsCoursesRow = dbSet.StudentsCourses.NewStudentsCoursesRow();
-                studentsCoursesRow.StudentID = Convert.ToInt32(choise);
+                var dbSet = new PrivateSchool();
+                var studentsCoursesRow = dbSet.StudentsCourses.NewStudentsCoursesRow();
+                studentsCoursesRow.StudentID = Convert.ToInt32(choice);
                 StudentsCourseSelection(studentsCoursesRow);
             }
         }
@@ -338,17 +338,17 @@ namespace Private_School
             ConsoleMessageForCourse();
             do
             {
-                var choise = Console.ReadLine();
+                var choice = Console.ReadLine();
                 Console.Write("What is the Tuition Fee for this Course? :");
-                var tuituionFee = Console.ReadLine();
-                if (StringValidation(choise) && StringValidation(tuituionFee))
+                var tuitionFee = Console.ReadLine();
+                if (StringValidation(choice) && StringValidation(tuitionFee))
                 {
-                    using (StudentsCoursesTableAdapter studentsCoursesTable = new StudentsCoursesTableAdapter())
+                    using (var studentsCoursesTable = new StudentsCoursesTableAdapter())
                     {
-                        PrivateSchool dbSet = new PrivateSchool();
+                        var dbSet = new PrivateSchool();
                         try
                         {
-                            AddToStudentsCourseTable(studentsCoursesRow, choise, tuituionFee, studentsCoursesTable, dbSet);
+                            AddToStudentsCourseTable(studentsCoursesRow, choice, tuitionFee, studentsCoursesTable, dbSet);
                             Console.Write("Another Course number? :");
                         }
                         catch (Exception)
@@ -367,17 +367,17 @@ namespace Private_School
             while (true);
         }
 
-        private static void AddToStudentsCourseTable(StudentsCoursesRow studentsCoursesRow, string choise, string tuituionFee,
+        private static void AddToStudentsCourseTable(StudentsCoursesRow studentsCoursesRow, string choice, string tuitionFee,
                                                      StudentsCoursesTableAdapter studentsCoursesTable, PrivateSchool dbSet)
         {
-            studentsCoursesRow.CourseID = Convert.ToInt32(choise);
-            studentsCoursesRow.tuitionFees = Convert.ToSingle(tuituionFee);
+            studentsCoursesRow.CourseID = Convert.ToInt32(choice);
+            studentsCoursesRow.tuitionFees = Convert.ToSingle(tuitionFee);
             studentsCoursesTable.Insert(studentsCoursesRow.CourseID, studentsCoursesRow.StudentID, studentsCoursesRow.tuitionFees);
             studentsCoursesTable.Update(dbSet.StudentsCourses);
         }
         public static void PrintAllStudentsPerCourse()
         {
-            using (StudentsPerCoursesTableAdapter studentsPerCoursesTable = new StudentsPerCoursesTableAdapter())
+            using (var studentsPerCoursesTable = new StudentsPerCoursesTableAdapter())
             {
                 var studentsCoursesRows = studentsPerCoursesTable.GetData().ToList();
                 if (studentsCoursesRows.Count > 0)
@@ -395,7 +395,7 @@ namespace Private_School
         }
         public static void PrintAllStudentsWithMoreThanOneCourses()
         {
-            using (StudentsWithMoreThanOneCourseTableAdapter studentsWithMoreThanOneCourse = new StudentsWithMoreThanOneCourseTableAdapter())
+            using (var studentsWithMoreThanOneCourse = new StudentsWithMoreThanOneCourseTableAdapter())
             {
                 var studentsCoursesRows = studentsWithMoreThanOneCourse.GetData().ToList();
                 if (studentsCoursesRows.Count > 0)
@@ -416,12 +416,12 @@ namespace Private_School
         public static void AssignmentsPerCourseMatch()
         {
             ConsoleMessageForAssignment();
-            var choise = Console.ReadLine();
-            if (StringValidation(choise))
+            var choice = Console.ReadLine();
+            if (StringValidation(choice))
             {
-                PrivateSchool dbSet = new PrivateSchool();
-                AssignmentsCoursesRow assignmentsCoursesRow = dbSet.AssignmentsCourses.NewAssignmentsCoursesRow();
-                assignmentsCoursesRow.AssignmentID = Convert.ToInt32(choise);
+                var dbSet = new PrivateSchool();
+                var assignmentsCoursesRow = dbSet.AssignmentsCourses.NewAssignmentsCoursesRow();
+                assignmentsCoursesRow.AssignmentID = Convert.ToInt32(choice);
                 AssignmentsCourseSelection(assignmentsCoursesRow);
             }
         }
@@ -430,19 +430,21 @@ namespace Private_School
             ConsoleMessageForCourse();
             do
             {
-                var choise = Console.ReadLine();
-                if (StringValidation(choise))
+                var choice = Console.ReadLine();
+                if (StringValidation(choice))
                 {
-                    string oralMark, totalMark;
-                    NewMethod(out oralMark, out totalMark);
+                    Console.Write("What is the Oral Mark for this Course? :");
+                    var oralMark = Console.ReadLine();
+                    Console.Write("What is the Total Mark for this Course? :");
+                    var totalMark = Console.ReadLine();
                     if (StringValidation(oralMark) && StringValidation(totalMark))
                     {
-                        using (AssignmentsCoursesTableAdapter assignmentsCoursesTable = new AssignmentsCoursesTableAdapter())
+                        using (var assignmentsCoursesTable = new AssignmentsCoursesTableAdapter())
                         {
-                            PrivateSchool dbSet = new PrivateSchool();
+                            var dbSet = new PrivateSchool();
                             try
                             {
-                                AddToAssignmentsCoursesTable(assignmentsCoursesRow, choise, oralMark, totalMark, assignmentsCoursesTable, dbSet);
+                                AddToAssignmentsCoursesTable(assignmentsCoursesRow, choice, oralMark, totalMark, assignmentsCoursesTable, dbSet);
                                 Console.Write("Another Course number? :");
                             }
                             catch (Exception)
@@ -462,14 +464,6 @@ namespace Private_School
             while (true);
         }
 
-        private static void NewMethod(out string oralMark, out string totalMark)
-        {
-            Console.Write("What is the Oral Mark for this Course? :");
-            oralMark = Console.ReadLine();
-            Console.Write("What is the Total Mark for this Course? :");
-            totalMark = Console.ReadLine();
-        }
-
         private static void AddToAssignmentsCoursesTable(AssignmentsCoursesRow assignmentsCoursesRow, string choise, string oralMark,
                                                          string totalMark, AssignmentsCoursesTableAdapter assignmentsCoursesTable, PrivateSchool dbSet)
         {
@@ -482,7 +476,7 @@ namespace Private_School
         }
         public static void PrintAllAssignmentsPerCourse()
         {
-            using (AssignmentsPerCoursesTableAdapter assignmentsPerCoursesTable = new AssignmentsPerCoursesTableAdapter())
+            using (var assignmentsPerCoursesTable = new AssignmentsPerCoursesTableAdapter())
             {
                 var assignmentsCoursesRows = assignmentsPerCoursesTable.GetData().ToList();
                 if (assignmentsCoursesRows.Count > 0)
@@ -503,12 +497,12 @@ namespace Private_School
         public static void AssignmentsPerStudentMatch()
         {
             ConsoleMessageForAssignment();
-            var choise = Console.ReadLine();
-            PrivateSchool dbSet = new PrivateSchool();
-            if (StringValidation(choise))
+            var choice = Console.ReadLine();
+            var dbSet = new PrivateSchool();
+            if (StringValidation(choice))
             {
-                StudentsAssignmentsRow studentsAssignmentsRow = dbSet.StudentsAssignments.NewStudentsAssignmentsRow();
-                studentsAssignmentsRow.AssignmentID = Convert.ToInt32(choise);
+                var studentsAssignmentsRow = dbSet.StudentsAssignments.NewStudentsAssignmentsRow();
+                studentsAssignmentsRow.AssignmentID = Convert.ToInt32(choice);
                 AssignmentsStudentSelection(studentsAssignmentsRow);
             }
         }
@@ -518,17 +512,17 @@ namespace Private_School
             do
             {
                 Console.Write("\n\nCourse Number? :");
-                var choise = Console.ReadLine();
+                var choice = Console.ReadLine();
                 Console.Write("\n\nStudent Number? :");
                 var secondChoice = Console.ReadLine();
-                if (StringValidation(choise) && StringValidation(secondChoice))
+                if (StringValidation(choice) && StringValidation(secondChoice))
                 {
-                    using (StudentsAssignmentsTableAdapter studentsAssignmentsTable = new StudentsAssignmentsTableAdapter())
+                    using (var studentsAssignmentsTable = new StudentsAssignmentsTableAdapter())
                     {
-                        PrivateSchool dbSet = new PrivateSchool();
+                        var dbSet = new PrivateSchool();
                         try
                         {
-                            AddToAssignmentsStudentsTable(studentsAssignmentsRow, choise, secondChoice, studentsAssignmentsTable, dbSet);
+                            AddToAssignmentsStudentsTable(studentsAssignmentsRow, choice, secondChoice, studentsAssignmentsTable, dbSet);
                         }
                         catch (Exception)
                         {
@@ -543,17 +537,17 @@ namespace Private_School
             }
             while (true);
         }
-        private static void AddToAssignmentsStudentsTable(StudentsAssignmentsRow studentsAssignmentsRow, string choise, string secondChoice,
+        private static void AddToAssignmentsStudentsTable(StudentsAssignmentsRow studentsAssignmentsRow, string choice, string secondChoice,
                                                           StudentsAssignmentsTableAdapter studentsAssignmentsTable, PrivateSchool dbSet)
         {
-            studentsAssignmentsRow.CoursesID = Convert.ToInt32(choise);
+            studentsAssignmentsRow.CoursesID = Convert.ToInt32(choice);
             studentsAssignmentsRow.StudentsID = Convert.ToInt32(secondChoice);
             studentsAssignmentsTable.Insert(studentsAssignmentsRow.AssignmentID, studentsAssignmentsRow.StudentsID, studentsAssignmentsRow.CoursesID);
             studentsAssignmentsTable.Update(dbSet.StudentsAssignments);
         }
         public static void PrintAllAssignmentsPerStudent()
         {
-            using (AssignmentPerCoursePerStudentTableAdapter studentsAssignments = new AssignmentPerCoursePerStudentTableAdapter())
+            using (var studentsAssignments = new AssignmentPerCoursePerStudentTableAdapter())
             {
                 var studentsAssignmentsRows = studentsAssignments.GetData().ToList();
                 if (studentsAssignmentsRows.Count > 0)
